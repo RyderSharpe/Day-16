@@ -1,0 +1,34 @@
+from menu import Menu, MenuItem
+from coffee_maker import CoffeeMaker
+from money_machine import MoneyMachine
+
+# TODO - Step 1: Print Report
+# create objects stored inside variables
+# object naming is lower case and uses _. Can be named anything
+# class has uppercase
+# object = class
+money_machine = MoneyMachine()
+coffee_maker = CoffeeMaker()
+menu = Menu()
+
+
+# TODO - Step 2: Check Resources Sufficient?
+
+
+is_on = True
+while is_on:
+    options = menu.get_items()
+    choice = input(f"What do would you like? {options}")
+    if choice == "off":
+        is_on = False
+    elif choice == "report":
+        coffee_maker.report()
+        money_machine.report()
+    else:
+        #drink = menu.find_drink(self, order_name)
+        drink = menu.find_drink(choice) # takes "order_name" as the input.
+        if coffee_maker.is_resource_sufficient(drink):
+            coffee_maker.make_coffee(drink)
+            print(f"here is your {choice}")
+            coffee_maker.report()
+

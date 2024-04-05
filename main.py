@@ -1,25 +1,39 @@
-# https://docs.python.org/3/library/turtle.html
+from menu import Menu, MenuItem
+from coffee_maker import CoffeeMaker
+from money_machine import MoneyMachine
 
-# Attributes: have things -> is_holding_plate = true
-# Methods: things can do -> def take_order(table, order):
 
-# Class: The waiter
-# Object: waiters names
-# object = class() -> car = CarBlueprint()
+def welcome():
+    print('''\033[33m
+             )))
+            (((
+          +-----+
+          |     |] - WELCOME TO THE COFFEE MACHINE!
+          `-----' 
+          \033[m
+        ''')
+# money_machine = MoneyMachine
 
-# import turtle
-# timmy = turtle.Turtle()
-# *or can write as shown below
-from turtle import Turtle, Screen
-timmy = Turtle()
-print(timmy)
 
-# methods
-timmy.shape("turtle")
-timmy.color("cyan", "magenta")
-timmy.forward(100)
-# object.attribute -> car.speed
-my_screen = Screen()
-print(my_screen.canvheight)
-# object.method -> car.stop()
-my_screen.exitonclick()
+coffee_maker = CoffeeMaker() # Create an instance of the CoffeeMaker class
+menu = Menu()
+menu_items = menu.get_items()
+
+
+is_on = True
+while is_on:
+    welcome()
+    print(f"\033[1mMenu: {menu_items}\033[0m")
+    print('''\x1B[3mPS: Type "report" at any moment to check our resources available. 
+    Type "off" to log out from the machine\x1B[0m.\n''')
+
+    user_input = input("What would you like? \n").lower()
+    if user_input == "report":
+        coffee_maker.report()
+    elif user_input in menu_items.split('/'):
+        coffee_maker.is_resource_sufficient(menu.find_drink(user_input))
+
+        # drink = menu.find_drink(user_input)
+        # print(f"Here is your  {drink.name}")
+
+    break
